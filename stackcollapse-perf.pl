@@ -83,6 +83,9 @@ foreach (<>) {
 	if (/^\s*\w+\s*(.+) (\S+)/) {
 		my ($func, $mod) = ($1, $2);
 		next if $func =~ /^\(/;		# skip process names
+		$func =~ s/;::/::/;
+		$func =~ s/;$//;
+		$func =~ s/;/,/g;
 		unshift @stack, $func;
 	} else {
 		warn "Unrecognized line: $_";
